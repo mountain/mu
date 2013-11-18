@@ -1,0 +1,68 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE MODE SYSTEM "xmode.dtd">
+
+<!--
+    This file is partially based on lisp.xml and mostly in
+    the documentation found at: http://clojure.org/
+
+    author: dsm
+    date:   24/10/08
+    version:0.1
+-->
+
+<MODE>
+    <PROPS>
+        <PROPERTY NAME="lineComment" VALUE=";" />
+        <PROPERTY NAME="noWordSep" VALUE=".*+!-_?/" />
+        <PROPERTY NAME="unalignedOpenBrackets" VALUE="(" />
+        <PROPERTY NAME="unalignedCloseBrackets" VALUE=")" />
+        <PROPERTY NAME="multipleBracketIndent" VALUE="true" />
+    </PROPS>
+    <RULES  IGNORE_CASE="FALSE"
+            HIGHLIGHT_DIGITS="TRUE"
+            NO_WORD_SEP=".*+!-_?/"
+            DIGIT_RE="([0-9]+)|(([0-9]*\.[0-9]+)M?)|([0-9]+/[0-9]+)">
+        <!-- S-exps / lists.
+             Quoted first so as to not break the normal ones.
+             This is highly repetitive, there must be a better way
+        -->
+        <SPAN TYPE="MARKUP" DELEGATE="MAIN">
+            <BEGIN>(</BEGIN>
+            <END>)</END>
+        </SPAN>
+
+        <!-- Based on convention discussed here:
+             http://www.gigamonkeys.com/book/syntax-and-semantics.html -->
+        <EOL_SPAN TYPE="COMMENT4">;;;;</EOL_SPAN>
+        <EOL_SPAN TYPE="COMMENT3">;;;</EOL_SPAN>
+        <EOL_SPAN TYPE="COMMENT2">;;</EOL_SPAN>
+        <EOL_SPAN TYPE="COMMENT1">;</EOL_SPAN>
+
+        <KEYWORDS>
+            <!-- Evaluation -->
+            <KEYWORD4>eval</KEYWORD4>
+
+            <!-- Special Forms -->
+            <KEYWORD1>quote</KEYWORD1>
+            <KEYWORD1>cond</KEYWORD1>
+            <KEYWORD1>lambda</KEYWORD1>
+            <KEYWORD1>label</KEYWORD1>
+
+            <!-- Constructors -->
+            <FUNCTION>atom</FUNCTION>
+            <FUNCTION>eq</FUNCTION>
+            <FUNCTION>cons</FUNCTION>
+            <FUNCTION>car</FUNCTION>
+            <FUNCTION>cdr</FUNCTION>
+
+            <FUNCTION>print</FUNCTION>
+            <FUNCTION>println</FUNCTION>
+
+            <!-- Literals -->
+            <LITERAL4>nil</LITERAL4>
+        </KEYWORDS>
+    </RULES>
+</MODE>
+
+
