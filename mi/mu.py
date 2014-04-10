@@ -5,7 +5,7 @@
 # It wasn't enough to write the Lisp interpreter -- I also wanted to share what I learned with *you*.  Reading
 # this source code provides a snapshot into the mind of John McCarthy, Steve Russell, Timothy P. Hart, and Mike Levin and
 # as an added bonus, myself.  The following source files are available for your reading:
-# 
+#
 # - [atom.py](atom.html)
 # - [env.py](env.html)
 # - [error.py](error.html)
@@ -17,10 +17,10 @@
 # - [reader.py](reader.html)
 # - [seq.py](seq.html)
 # - [core.lisp](core.html)
-# 
+#
 # The Lithp interpreter requires Python 2.6.1+ to function.
 #   please add comments, report errors, annecdotes, etc. to the [Lithp Github project page](http://github.com/fogus/lithp)
-# 
+#
 import pdb
 import getopt, sys, io
 from env import Environment
@@ -33,10 +33,10 @@ from error import Error
 from fun import Lambda
 from fun import Closure
 
-NAME = "Lithp"
-VERSION = "v1.1"
-WWW = "http://fogus.me/fun/lithp/"
-PROMPT = "lithp"
+NAME = "Mu"
+VERSION = "v0.0"
+WWW = "https://github.com/mountain/mu/"
+PROMPT = "mu"
 DEPTH_MARK = "."
 
 class Lithp(Lisp):
@@ -72,7 +72,7 @@ class Lithp(Lisp):
         self.environment.set("cons",   Function(self.cons))
         self.environment.set("atom",   Function(self.atom))
         self.environment.set("cond",   Function(self.cond))
-        
+
         # Define utility function
         self.environment.set("print",  Function( self.println))
 
@@ -97,7 +97,8 @@ class Lithp(Lisp):
 
     def print_banner(self):
         print "The", NAME, "programming shell", VERSION
-        print "   by Fogus,", WWW
+        print "   originally by Fogus,"
+        print "   changed by Mountain,", WWW
         print "   Type :help for more information"
         print
 
@@ -120,7 +121,7 @@ class Lithp(Lisp):
     def repl(self):
         while True:
             # Stealing the s-expression parsing approach from [CLIPS](http://clipsrules.sourceforge.net/)
-            source = self.get_complete_command() 
+            source = self.get_complete_command()
 
             # Check for any REPL directives
             if source in [":quit"]:
@@ -155,9 +156,9 @@ class Lithp(Lisp):
     # In the process of living my life I had always heard that closures and dynamic scope
     # cannot co-exist.  As a thought-experiment I can visualize why this is the case.  That is,
     # while a closure captures the contextual binding of a variable, lookups in dynamic scoping
-    # occur on the dynamic stack.  This means that you may be able to close over a variable as 
-    # long as it's unique, but the moment someone else defines a variable of the same name 
-    # and attempt to look up the closed variable will resolve to the top-most binding on the 
+    # occur on the dynamic stack.  This means that you may be able to close over a variable as
+    # long as it's unique, but the moment someone else defines a variable of the same name
+    # and attempt to look up the closed variable will resolve to the top-most binding on the
     # dynamic stack.  This assumes the the lookup occurs before the variable of the same name
     # is popped.  While this is conceptually easy to grasp, I still wanted to see what would
     # happen in practice -- and it wasn't pretty.
@@ -190,7 +191,7 @@ class Lithp(Lisp):
                 prompt = PROMPT + "%s " % (DEPTH_MARK * (depth+1))
 
             line = line + self.read_line(prompt)
-            
+
             # Used to balance the parens
             balance = 0
             for ch in line:
@@ -268,7 +269,7 @@ if __name__ == '__main__':
 
     # Process the core lisp functions, if applicable
     if lithp.core:
-        lithp.process_files(["../core.lisp"])
+        lithp.process_files(["../mu/core.lisp"])
 
     if len(files) > 0:
         lithp.process_files(files)
