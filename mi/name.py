@@ -31,7 +31,6 @@ class NamedSpace():
     def __init__(self, par, name):
         self.parent = par
         self.name = name
-        self.fsobj =
 
     def __repr__(self):
         return self.qname()

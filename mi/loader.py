@@ -77,7 +77,7 @@ class Loader(Lisp):
 
             source = self.get_complete_command(environment)
             while(source not in ["EOF"]):
-                self.process(source)
+                self.handle(source)
 
                 source = self.get_complete_command(environment)
 
